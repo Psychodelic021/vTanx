@@ -2,28 +2,38 @@
 
 #include <intrin.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <vulkan/vulkan.h>
 #include <vulkan/vulkan_win32.h>
 
 #include "win32.h"
 
-#define VK_CHECK(x)                                        \
-    {                                                      \
-        VkResult result = x;                               \
-        if (VK_SUCCESS != result)                          \
-        {                                                  \
-            char str[16];                                  \
+#ifdef DEBUG
+#define VK_CHECK(x) \
+    { \
+        VkResult result = x; \
+        if (VK_SUCCESS != result) \
+        { \
+            char str[16]; \
             sprintf(str, "Vulkan error: %d", (int)result); \
-            printf(str, "Vulkan error: %d", (int)result);  \
-            OutputDebugString(str);                        \
-            __debugbreak();                                \
-        }                                                  \
+            printf(str, "Vulkan error: %d", (int)result); \
+            OutputDebugString(str); \
+            __debugbreak(); \
+        } \
     }
+#else
+#define VK_CHECK(x) x
+#endif
 
-typedef struct {
+struct VulkanContext {
     VkInstance instance;
     VkSurfaceKHR surface;
-} VulkanContext;
+    VkPhysicalDevice GPU;
+    VkDevice device;
+    VkQueue queue;
+    VkSwapchainKHR swapchain;
+    VkImage* renderTarget;
 
-void VulkanInit(VulkanContext* context, WindowState* window); 
+    VulkanContext(Win32::Window* window);
+};

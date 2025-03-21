@@ -4,6 +4,6 @@
         "*.c": "c",
         "*.hpp": "cpp",
         "*.cpp": "cpp",
-        "xlocale": "c"
+        "expected": "cpp"
     }
 }

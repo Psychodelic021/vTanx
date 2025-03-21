@@ -6,10 +6,12 @@
                 "${workspaceFolder}/**",
                 "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/include",
                 "C:/Program Files (x86)/Windows Kits/10/Include/**",
-                "D:/Development/VulkanSDK/1.4.304.1/Include"
+                "${workspaceFolder}/vendor",
+                "${env:VULKAN_SDK}/Include"
             ],
             "defines": [
-                "_DEBUG"
+                "_DEBUG",
+                "DEBUG"
             ],
             "windowsSdkVersion": "10.0.22621.0",
             "compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe",

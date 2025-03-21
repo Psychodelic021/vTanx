@@ -1,19 +1,51 @@
 #pragma once
 
+#include "types.h"
+
 // API includes
-#define WIN32_LEAN_AND_MEAN
+#define LEAN_AND_MEAN
 #include <Windows.h>
+#include <Windowsx.h>
 
-typedef struct {
-    HINSTANCE instance;
-    HWND handle;
-    const char* title;
-    UINT style;
-    int width;
-    int height;
-    int is_running;
-    MSG event;
-} WindowState;
+namespace Win32 {
 
-void Win32_WindowInit(WindowState* window, int width, int height, const char* title);
-void Win32_WindowUpdate(WindowState* window);
+    // Window type
+    struct Window {
+
+        HINSTANCE instance;
+        HWND handle;
+        HDC devcon;
+        HGLRC rndcon;
+        const char* title;
+        DWORD style;
+        // Surface parameters
+        int screen_width;
+        int screen_height;
+        int is_running;
+        int monitor_width;
+        int monitor_height;
+        struct InputState {
+            int keys[256];
+            int mouse_buttons[5];
+            int mouse_x;
+            int mouse_y;
+        } input;
+
+        // Constructor
+        Window(int32 width, int32 height, const char* title);
+
+        // Main window callback procedure
+        static LRESULT CALLBACK Callback(HWND handle, UINT message, WPARAM w_param, LPARAM l_param);
+
+        // Window message pump
+        void update();
+    };
+
+    // System functions
+    void CheckDpiAwareness();
+    float GetTime();
+    void CheckLastError();
+    char* LoadTextFileToString(const char* filename);
+    void DeallocateString(char* str);
+
+};
