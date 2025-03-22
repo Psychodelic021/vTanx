@@ -7,7 +7,7 @@ SET COMPILER=cl
 SET CFLAGS=/Zi /W4 /fsanitize=address
 SET DEFINES=/D_DEBUG /D_CRT_SECURE_NO_WARNINGS
 SET INCLUDES=/Isrc /I%VULKAN_SDK%\Include
-SET SOURCE=src/main.cpp
+SET SOURCE=src/main.cc
 
 :: Linker options
 SET LINKER=/link

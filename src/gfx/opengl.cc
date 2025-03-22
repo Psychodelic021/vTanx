@@ -2,11 +2,9 @@
 
 #include "opengl.h"
 
-#pragma warning(disable : 6387)
-
 // OPENGL
 
-void InitOpenGL(Win32::Window* wnd, int major, int minor)
+void InitOpenGL(System::Window* wnd, int major, int minor)
 {
     PIXELFORMATDESCRIPTOR pfd = {
         .nSize = sizeof(PIXELFORMATDESCRIPTOR),
@@ -118,12 +116,12 @@ Shader::Shader(const char* vertex_filepath, const char* fragment_filepath)
     ID = 0;
     uint32 vertex = 0, fragment = 0;
 
-    char* vertex_source = Win32::LoadTextFileToString(vertex_filepath);
+    char* vertex_source = System::LoadTextFileToString(vertex_filepath);
     if (!vertex_source) {
         printf("Error: invalid vertex source!\n");
     }
 
-    char* fragment_source = Win32::LoadTextFileToString(fragment_filepath);
+    char* fragment_source = System::LoadTextFileToString(fragment_filepath);
     if (!fragment_source) {
         printf("Error: invalid fragment source!\n");
     }
@@ -135,8 +133,8 @@ Shader::Shader(const char* vertex_filepath, const char* fragment_filepath)
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 
-    Win32::DeallocateString(vertex_source);
-    Win32::DeallocateString(fragment_source);
+    System::DeallocateString(vertex_source);
+    System::DeallocateString(fragment_source);
 }
 
 uint32 Shader::Compile(const char* source, const char* name, const char* file, uint32 type)

@@ -1,6 +1,6 @@
-#include "win32.h"
+#include "system.h"
 
-namespace Win32 {
+namespace System {
 
     // Main window callback function
     LRESULT CALLBACK Window::Callback(HWND handle, UINT message, WPARAM w_param, LPARAM l_param) {
@@ -245,4 +245,8 @@ namespace Win32 {
         str = NULL;
     }
 
+    void SkipTime(int32 milliseconds)
+    {
+        Sleep(milliseconds);
+    }
 }

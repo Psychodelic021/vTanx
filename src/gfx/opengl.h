@@ -1,12 +1,12 @@
 #pragma once
 
-#include "types.h"
-#include "win32.h"
+#include "..\types.h"
+#include "..\system.h"
 
 #include <glad\glad.h>
 #include <glad\glad_wgl.h>
 
-void InitOpenGL(Win32::Window* wnd, int major, int minor);
+void InitOpenGL(System::Window* wnd, int major, int minor);
 
 struct Shader {
 

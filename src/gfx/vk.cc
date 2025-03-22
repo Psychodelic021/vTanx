@@ -1,6 +1,6 @@
 #include "vk.h"
 
-VulkanContext::VulkanContext(Win32::Window* window) {
+Vulkan::Vulkan(System::Window* window) {
 
     // Define the validation layers
     const char* validationLayers[] = {
@@ -56,7 +56,7 @@ VulkanContext::VulkanContext(Win32::Window* window) {
     VK_CHECK(vkEnumeratePhysicalDevices(instance, &count, adapters));
 
     // Select the GPU
-    GPU = adapters[0];
+    physical_device = adapters[0];
 
     // Create a logial device
     float queuePriority = 1.0f;
@@ -79,7 +79,7 @@ VulkanContext::VulkanContext(Win32::Window* window) {
         .ppEnabledExtensionNames = deviceExtensions
     };
 
-    VK_CHECK(vkCreateDevice(GPU, &deviceInfo, NULL, &device));
+    VK_CHECK(vkCreateDevice(physical_device, &deviceInfo, NULL, &device));
 
     // Get the queue
     vkGetDeviceQueue(device, 0, 0, &queue);
@@ -105,13 +105,13 @@ VulkanContext::VulkanContext(Win32::Window* window) {
 
     // Get the swapchain images
     VK_CHECK(vkGetSwapchainImagesKHR(device, swapchain, &count, NULL));
-    renderTarget = (VkImage*)malloc(sizeof(VkImage) * count);
-    if (renderTarget == NULL) {
+    image = (VkImage*)malloc(sizeof(VkImage) * count);
+    if (image == NULL) {
         // Handle allocation failure
         fprintf(stderr, "Failed to allocate memory for swapchain images\n");
         exit(EXIT_FAILURE);
     }
 
-    VK_CHECK(vkGetSwapchainImagesKHR(device, swapchain, &count, renderTarget));
+    VK_CHECK(vkGetSwapchainImagesKHR(device, swapchain, &count, image));
 
 }

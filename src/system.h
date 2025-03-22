@@ -7,7 +7,7 @@
 #include <Windows.h>
 #include <Windowsx.h>
 
-namespace Win32 {
+namespace System {
 
     // Window type
     struct Window {
@@ -24,7 +24,7 @@ namespace Win32 {
         int is_running;
         int monitor_width;
         int monitor_height;
-        struct InputState {
+        struct {
             int keys[256];
             int mouse_buttons[5];
             int mouse_x;
@@ -47,5 +47,6 @@ namespace Win32 {
     void CheckLastError();
     char* LoadTextFileToString(const char* filename);
     void DeallocateString(char* str);
+    void SkipTime(int32 milliseconds);
 
 };

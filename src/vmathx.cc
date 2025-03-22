@@ -3,7 +3,7 @@
 #include <math.h>
 #include <assert.h>
 
-#include "vmatx.h"
+#include "vmathx.h"
 
 // DEFINES ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,73 +20,73 @@ float radians(float angle_deg)
 
 vec2::vec2(float f) : x(f), y(f) {}
 vec2::vec2(float x, float y) : x(x), y(y) {}
-vec2::vec2(const vec2& src) : x(src.x), y(src.y) {};
+vec2::vec2(vec2& src) : x(src.x), y(src.y) {};
 
-void vec2::operator= (const vec2 src) { x = src.x; y = src.y; }
+void vec2::operator= (vec2 src) { x = src.x; y = src.y; }
 
-vec2 operator- (const vec2& a)
+vec2 operator- (vec2 a)
 {
     return vec2(-a.x, -a.y);
 }
 
-vec2 operator+ (const vec2& a, const vec2& b)
+vec2 operator+ (vec2 a, vec2 b)
 {
     return vec2(a.x + b.x, a.y + b.y);
 }
 
-vec2 operator- (const vec2& a, const vec2& b)
+vec2 operator- (vec2 a, vec2 b)
 {
     return vec2(a.x - b.x, a.y - b.y);
 }
 
-vec2 operator* (const vec2& a, const vec2& b)
+vec2 operator* (vec2 a, vec2 b)
 {
     return vec2(a.x * b.x, a.y * b.y);
 }
 
- vec2 operator/ (const vec2& a, const vec2& b)
+ vec2 operator/ (vec2 a, vec2 b)
 {
     assert(b.x != 0.f && b.y != 0.f);
     return vec2(a.x / b.x, a.y / b.y);
 }
 
-void operator+= (vec2& a, const vec2& b)
+void operator+= (vec2& a, vec2 b)
 {
     a.x += b.x;
     a.y += b.y;
 }
 
-void operator-= (vec2& a, const vec2& b)
+void operator-= (vec2& a, vec2 b)
 {
     a.x -= b.x;
     a.y -= b.y;
 }
 
-void operator*= (vec2& a, const vec2& b)
+void operator*= (vec2& a, vec2 b)
 {
     a.x *= b.x;
     a.y *= b.y;
 }
 
-void operator/= (vec2& a, const vec2& b)
+void operator/= (vec2& a, vec2 b)
 {
     assert(b.x != 0.f && b.y != 0.f);
     a.x /= b.x;
     a.y /= b.y;
 }
 
-vec2 operator* (const vec2& a, float f)
+vec2 operator* (vec2 a, float f)
 {
     return vec2(a.x * f, a.y * f);
 }
 
-vec2 operator/ (const vec2& a, float f)
+vec2 operator/ (vec2 a, float f)
 {
     assert(f != 0.0f);
     return vec2(a.x / f, a.y / f);
 }
 
-vec2 operator* (const float f, const vec2& vec)
+vec2 operator* (float f, vec2 vec)
 {
     return vec2(f * vec.x, f * vec.y);
 }
@@ -97,92 +97,85 @@ void operator*= (vec2& a, float f)
     a.y *= f;
 }
 
-void operator/= (vec2& a, const float f)
+void operator/= (vec2& a, float f)
 {
     assert(f != 0.0f);
     a.x /= f;
     a.y /= f;
 }
 
-float dot(const vec2& a, const vec2& b)
+float dot(vec2 a, vec2 b)
 {
     return a.x * b.x + a.y * b.y;
 }
 
-vec2 normalize(const vec2& a)
+vec2 normalize(vec2& a)
 {
     float inverse_len = 1.0f / sqrtf(a.x * a.x + a.y * a.y);
     return vec2(a.x * inverse_len, a.y * inverse_len);
-}
-
-vec2 reflect(vec2& out, const vec2& a, const vec2& b)
-{
-    float k = dot(a, b) * 2.f;
-    out.x = a.x - b.x * k;
-    out.y = a.y - b.y * k;
 }
 
 // VECTOR 3 FLOAT TYPE ////////////////////////////////////////////////////////////////////////////////////////////////
 
 vec3::vec3(float f) : x(f), y(f), z(f) {}
 vec3::vec3(float x, float y, float z) : x(x), y(y), z(z) {}
-vec3::vec3(const vec3& src) : x(src.x), y(src.y), z(src.z) {}
+vec3::vec3(vec3& src) : x(src.x), y(src.y), z(src.z) {}
 
-void vec3::operator= (const vec3 src)
+void vec3::operator= (vec3 src)
 {   
     x = src.x;
     y = src.y;
     z = src.z;
 }
 
-vec3 operator- (const vec3 a)
+vec3 operator- (vec3 a)
 {
     return vec3(-a.x, -a.y, -a.z);
 }
 
-vec3 operator+ (const vec3 a, const vec3 b)
+vec3 operator+ (vec3 a, vec3 b)
 {
     return vec3(a.x + b.x, a.y + b.y, a.z + b.z);
 }
 
-vec3 operator- (const vec3 a, const vec3 b)
+vec3 operator- (vec3 a, vec3 b)
 {
     return vec3(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
-vec3 operator* (const vec3 a, const vec3 b)
+vec3 operator* (vec3 a, vec3 b)
 {
     return vec3(a.x * b.x, a.y * b.y, a.z * b.z);
 }
 
-vec3 operator/ (const vec3 a, const vec3 b)
+vec3 operator/ (vec3 a, vec3 b)
 {
     assert(b.x != 0.f && b.y != 0.f && b.z != 0.f);
     return vec3(a.x / b.x, a.y / b.y, a.z / b.z);
 }
 
-void operator+= (vec3& a, const vec3 b)
+void operator+= (vec3& a, vec3 b)
 {
     a.x += b.x;
     a.y += b.y;
     a.z += b.z;
 }
 
-void operator-= (vec3& a, const vec3 b)
+void operator-= (vec3& a, vec3 b)
 {
     a.x -= b.x;
     a.y -= b.y;
     a.z -= b.z;
 }
 
-void operator*= (vec3& a, const vec3 b)
+void operator*= (vec3& a, vec3 b)
 {
     a.x *= b.x;
     a.y *= b.y;
     a.z *= b.z;
 }
 
-void operator/= (vec3& a, const vec3 b)
+void operator/= (vec3& a, vec3 b)
 {
     assert(b.x != 0.f && b.y != 0.f && b.z != 0.f);
     a.x /= b.x;
@@ -190,18 +183,18 @@ void operator/= (vec3& a, const vec3 b)
     a.z /= b.z;
 }
 
-vec3 operator* (const vec3 a, float f)
+vec3 operator* (vec3 a, float f)
 {
     return vec3(a.x * f, a.y * f, a.z * f);
 }
 
-vec3 operator/ (const vec3 a, float f)
+vec3 operator/ (vec3 a, float f)
 {
     assert(f != 0.0f);
     return vec3(a.x / f, a.y / f, a.z / f);
 }
 
- vec3 operator* (const float f, const vec3 vec)
+ vec3 operator* (float f, vec3 vec)
 {
     return vec3(f * vec.x, f * vec.y, f * vec.z);
 }
@@ -213,7 +206,7 @@ void operator*= (vec3 a, float f)
     a.z *= f;
 }
 
-void operator/= (vec3 a, const float f)
+void operator/= (vec3 a, float f)
 {
     assert(f != 0.0f);
     a.x /= f;
@@ -221,12 +214,12 @@ void operator/= (vec3 a, const float f)
     a.z /= f;
 }
 
-float dot(const vec3 a, const vec3 b)
+float dot(vec3 a, vec3 b)
 {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-vec3 cross(const vec3 a, const vec3 b)
+vec3 cross(vec3 a, vec3 b)
 {
     return vec3 {
         a.y * b.z - a.z * b.y,
@@ -235,7 +228,7 @@ vec3 cross(const vec3 a, const vec3 b)
     };
 }
 
-vec3 normalize(const vec3& a)
+vec3 normalize(vec3 a)
 {
     float inverse_len = 1.0f / sqrtf(a.x * a.x + a.y * a.y + a.z * a.z);
     return vec3(a.x * inverse_len, a.y * inverse_len, a.z * inverse_len);
@@ -245,9 +238,9 @@ vec3 normalize(const vec3& a)
 
 vec4::vec4(float f) : x(f), y(f), z(f), w(f) {}
 vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
-vec4::vec4(const vec4& src) : x(src.x), y(src.y), z(src.z), w(src.w) {}
+vec4::vec4(vec4& src) : x(src.x), y(src.y), z(src.z), w(src.w) {}
 
-void vec4::operator= (const vec4 src)
+void vec4::operator= (vec4 src)
 {
     x = src.x;
     y = src.y;
@@ -265,7 +258,7 @@ mat4::mat4(float f)
     idx[3][3] = f;
 }
 
-mat4::mat4(const mat4& src)
+mat4::mat4(mat4& src)
 {
     idx[0][0] = src.idx[0][0]; idx[0][1] = src.idx[0][1]; idx[0][2] = src.idx[0][2]; idx[0][3] = src.idx[0][3];
     idx[1][0] = src.idx[1][0]; idx[1][1] = src.idx[1][1]; idx[1][2] = src.idx[1][2]; idx[1][3] = src.idx[1][3];
@@ -273,7 +266,7 @@ mat4::mat4(const mat4& src)
     idx[3][0] = src.idx[3][0]; idx[3][1] = src.idx[3][1]; idx[3][2] = src.idx[3][2]; idx[3][3] = src.idx[3][3];
 }
 
-void mat4::operator= (const mat4 src)
+void mat4::operator= (mat4 src)
 {
     idx[0][0] = src.idx[0][0]; idx[0][1] = src.idx[0][1]; idx[0][2] = src.idx[0][2]; idx[0][3] = src.idx[0][3];
     idx[1][0] = src.idx[1][0]; idx[1][1] = src.idx[1][1]; idx[1][2] = src.idx[1][2]; idx[1][3] = src.idx[1][3];
@@ -281,7 +274,7 @@ void mat4::operator= (const mat4 src)
     idx[3][0] = src.idx[3][0]; idx[3][1] = src.idx[3][1]; idx[3][2] = src.idx[3][2]; idx[3][3] = src.idx[3][3];
 }
 
-mat4 operator* (const mat4 a, const mat4 b)
+mat4 operator* (mat4 a, mat4 b)
 {
     mat4 out(0);
 
@@ -308,7 +301,7 @@ mat4 operator* (const mat4 a, const mat4 b)
     return out;
 }
 
-void operator*= (mat4& out, const mat4 in)
+void operator*= (mat4& out, mat4 in)
 {
     mat4 t = out;
 
@@ -333,7 +326,7 @@ void operator*= (mat4& out, const mat4 in)
     out.idx[3][3] = t.idx[3][0] * in.idx[0][3] + t.idx[3][1] * in.idx[1][3] + t.idx[3][2] * in.idx[2][3] + t.idx[3][3] * in.idx[3][3];
 }
 
-mat4 operator* (const mat4 in, float f)
+mat4 operator* (mat4 in, float f)
 {
     mat4 out(0);
 
@@ -345,7 +338,7 @@ mat4 operator* (const mat4 in, float f)
     return out;
 }
 
-mat4 operator* (float f, const mat4 in)
+mat4 operator* (float f, mat4 in)
 {
     mat4 out(0);
 
@@ -365,7 +358,7 @@ void operator*= (mat4& out, float f)
     out.idx[3][0] = out.idx[3][0] * f; out.idx[3][1] = out.idx[3][1] * f; out.idx[3][2] = out.idx[3][2] * f; out.idx[3][3] = out.idx[3][3] * f;
 }
 
- mat4 transpose(const mat4 a)
+ mat4 transpose(mat4 a)
 {
     mat4 out(0);
 
@@ -377,7 +370,7 @@ void operator*= (mat4& out, float f)
     return out;
 }
 
- mat4 scale(const mat4 a, float f)
+ mat4 scale(mat4 a, float f)
 {
     mat4 scaling(0);
 
@@ -389,7 +382,7 @@ void operator*= (mat4& out, float f)
     return a * scaling;
 }
 
- mat4 scale(const mat4 a, float x, float y, float z)
+ mat4 scale(mat4 a, float x, float y, float z)
 {
     mat4 scaling(0);
 
@@ -401,7 +394,7 @@ void operator*= (mat4& out, float f)
     return a * scaling;
 }
 
- mat4 scale(const mat4 a, const vec3& b)
+ mat4 scale(mat4 a, vec3 b)
 {
     mat4 scaling(0);
 
@@ -413,7 +406,7 @@ void operator*= (mat4& out, float f)
     return a * scaling;
 }
 
- mat4 translate(const mat4 a, float x, float y, float z)
+ mat4 translate(mat4 a, float x, float y, float z)
 {
     mat4 trans(1);
 
@@ -424,7 +417,7 @@ void operator*= (mat4& out, float f)
     return a * trans;
 }
 
- mat4 translate(const mat4 a, const vec3 b)
+ mat4 translate(mat4 a, vec3 b)
 {
     mat4 trans(1);
 
@@ -435,7 +428,7 @@ void operator*= (mat4& out, float f)
     return a * trans;
 }
 
- mat4 rotate(const mat4 a, const vec3 axis, float angle_rad)
+ mat4 rotate(mat4 a, vec3 axis, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -459,7 +452,7 @@ void operator*= (mat4& out, float f)
     return a * rot;
 }
 
- mat4 rotateZ(const mat4& a, float angle_rad)
+ mat4 rotateZ(mat4& a, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -476,7 +469,7 @@ void operator*= (mat4& out, float f)
     return a * rot;
 }
 
- mat4 rotateY(const mat4& a, float angle_rad)
+ mat4 rotateY(mat4& a, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -493,7 +486,7 @@ void operator*= (mat4& out, float f)
     return a * rot;
 }
 
- mat4 rotateX(const mat4 a, float angle_rad)
+ mat4 rotateX(mat4 a, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -510,7 +503,7 @@ void operator*= (mat4& out, float f)
     return a * temp;
 }
 
- mat4 lookAt(const vec3 eye, const vec3 target, const vec3 up)
+ mat4 lookAt(vec3 eye, vec3 target, vec3 up)
 {
     vec3 view_z = normalize(target - eye);
     vec3 view_x = normalize(cross(view_z, up));

@@ -7,7 +7,7 @@
 #include <vulkan/vulkan.h>
 #include <vulkan/vulkan_win32.h>
 
-#include "win32.h"
+#include "..\system.h"
 
 #ifdef DEBUG
 #define VK_CHECK(x) \
@@ -26,14 +26,14 @@
 #define VK_CHECK(x) x
 #endif
 
-struct VulkanContext {
+struct Vulkan {
     VkInstance instance;
     VkSurfaceKHR surface;
-    VkPhysicalDevice GPU;
+    VkPhysicalDevice physical_device;
     VkDevice device;
     VkQueue queue;
     VkSwapchainKHR swapchain;
-    VkImage* renderTarget;
+    VkImage* image;
 
-    VulkanContext(Win32::Window* window);
+    Vulkan(System::Window* window);
 };
