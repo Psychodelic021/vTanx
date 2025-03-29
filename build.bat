@@ -4,16 +4,17 @@
 
 :: Compiler options
 SET COMPILER=cl
-SET CFLAGS=/Zi /W4 /fsanitize=address
-SET DEFINES=/D_DEBUG /D_CRT_SECURE_NO_WARNINGS
-SET INCLUDES=/Isrc /I%VULKAN_SDK%\Include
-SET SOURCE=src/main.cc
+SET CFLAGS=/Zi /EHsc /W4 /std:c++20 /fsanitize=address /MDd
+SET DEFINES=/D_DEBUG
+SET INCLUDES=/Isource
+SET SOURCE=source/main.cc
 
 :: Linker options
 SET LINKER=/link
 SET LFLAGS=/DEBUG /MACHINE:X64 /SUBSYSTEM:CONSOLE
-SET LIBS=/LIBPATH:%VULKAN_SDK%\Lib vulkan-1.lib user32.lib
-SET TARGET=/OUT:vtanx.exe
+SET LIBS=user32.lib d3d11.lib dxguid.lib d3dcompiler.lib
+SET TARGET=/OUT:engine.exe
 
 :: Build
 %COMPILER% %CFLAGS% %DEFINES% %INCLUDES% %SOURCE%   %LINKER% %LFLAGS% %LIBS% %TARGET%
+    

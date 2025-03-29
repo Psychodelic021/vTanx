@@ -1,12 +1,6 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include <assert.h>
-#include <intrin.h>
 
 typedef int8_t int8;
 typedef int16_t int16;

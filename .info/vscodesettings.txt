@@ -1,0 +1,218 @@
+{  
+    // Color settings
+    "workbench.colorCustomizations": {
+        "foreground": "#D3D7CF",
+
+        // Editor colors settings
+        "editor.background": "#1E1E1E", // #1E2224 #191D1F "#22282A"
+        "editorGutter.background": "#1E1E1E",
+        "editor.lineHighlightBackground": "#55555585",
+        // "editor.lineHighlightBorder": "#22282A",
+        "editor.wordHighlightBackground": "#55555585",
+        // "editor.wordHighlightBorder": "#888A85",
+        "editor.selectionBackground": "#4C575D", // #394246
+        // "editor.selectionHighlightBackground": "#22282A",
+        // "editor.selectionHighlightBorder": "#394246",
+        "editor.hoverHighlightBackground": "#55555585",
+        "editorLineNumber.foreground": "#888A85",
+        "editorLineNumber.activeForeground": "#D3D7CF",
+
+        // Activity bar colors settings
+        "activityBar.background": "#1E1E1E",
+        "activityBar.border": "#1E1E1E",
+        "activityBar.activeBorder": "#888A85",
+        
+        // Editor group header colors settings
+        "editorGroupHeader.tabsBackground": "#1E1E1E",
+        "editorGroupHeader.border": "#1E1E1E",
+        
+        // Tab colors settings
+        "tab.activeBackground": "#333333",
+        "tab.hoverBackground": "#282828",
+        "tab.inactiveBackground": "#1E1E1E",
+        "tab.border": "#1E1E1E",
+        "tab.activeBorderTop": "#22282A", // #191D1F
+
+        // Title bar colors settings
+        "titleBar.activeBackground": "#1E1E1E",
+        "titleBar.border": "#1E1E1E",
+        
+        // Menu colors settings
+        "menu.background": "#1E1E1E", // #0E1011 #1E1E1E
+        "menu.border": "#1E1E1E",
+        "menu.selectionBackground": "#22282A", // #22282A
+        
+        // Command center colors settings
+        "commandCenter.background": "#1E1E1E",
+
+        // Side bar colors settings
+        "sideBar.background": "#191919",
+        "sideBar.border": "#1E1E1E",
+        "sideBarSectionHeader.background": "#191919",
+        "sideBarSectionHeader.border": "#1E1E1E", 
+
+        // List colors settings
+        "list.hoverBackground": "#333333",
+        "list.activeSelectionBackground": "#333333",
+        "list.inactiveSelectionBackground": "#333333",
+        "list.focusAndSelectionOutline": "#333333",
+        
+        // Status colors settings
+        "statusBar.background": "#191919", // #0E1011
+        "statusBar.border": "#1E1E1E", // #444444
+        "statusBarItem.remoteBackground": "#1E1E1E",
+        
+        // Terminal colors settings
+        "terminal.background": "#191919",
+        "terminal.border": "#1E1E1E",
+
+        // Panel colors settings
+        "panel.background": "#191919",
+        "panel.border": "#1E1E1E",
+    },
+
+    "editor.fontSize": 20,
+    "editor.lineHeight": 1.3,
+    "editor.insertSpaces": true,
+    "editor.mouseWheelZoom": true,
+    "editor.fontFamily": "Consolas",
+    "editor.bracketPairColorization.enabled": false,
+    "editor.fontLigatures": false,
+    "editor.minimap.scale": 1,
+    "zenMode.hideLineNumbers": false,
+    "terminal.integrated.fontSize": 14, // corrected line
+    "extensions.ignoreRecommendations": true,
+    "editor.minimap.showSlider": "always",
+    "security.workspace.trust.untrustedFiles": "open",
+    "C_Cpp.enhancedColorization": "enabled",
+    "explorer.confirmDelete": false,
+    "editor.stickyScroll.enabled": false,
+    "window.commandCenter": false,
+    "debug.onTaskErrors": "abort",
+    "breadcrumbs.enabled": false,
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "*.hpp": "cpp",
+        "*.cpp": "cpp"
+    },
+    "editor.guides.highlightActiveIndentation": "always",
+    "editor.guides.indentation": true,
+
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "terminal.explorerKind": "external",
+
+    "editor.tabCompletion": "on",
+
+
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.autoClosingComments": "never",
+    "explorer.confirmDragAndDrop": false,
+    "terminal.integrated.accessibleViewPreserveCursorPosition": true,
+    "workbench.activityBar.location": "top",
+    "editor.minimap.size": "fit",
+    "workbench.colorTheme": "Visual Studio Dark - C++",
+    "editor.renderControlCharacters": true,
+
+    "editor.tokenColorCustomizations": {
+
+        "textMateRules": [
+            {
+                "scope" : "comment",
+                "settings": {
+                    "foreground": "#57a64a",
+                    "fontStyle": ""
+                }
+            },
+            {
+                "scope" : "variable.other.local.cpp",
+                "settings": {
+                    "foreground": "#D2D2D2",
+                    "fontStyle": ""
+                }
+            },
+            {
+                "scope" : "variable.other.property",
+                "settings": {
+                    "foreground": "#9CDCFE",
+                    "fontStyle": ""
+                }
+            },
+        ]
+    },
+    
+    // TODO Highlight settings
+    "todohighlight.isEnable": true,
+    "todohighlight.keywords": [
+        {
+            "text": "TODO:",
+            "color": "red",
+            "backgroundColor": "rgba(0,0,0,0)"
+        },
+        {
+            "text": "HACK:",
+            "color": "#ff6600",
+            "backgroundColor": "rgba(0,0,0,0)"
+        },
+        {
+            "text": "NOTE:",
+            "color": "#20d8cf",
+            "backgroundColor": "rgba(0,0,0,0)"
+        },
+        {
+            "text": "FIXME:",
+            "color": "#ea4fff",
+            "backgroundColor": "rgba(0,0,0,0)"
+        }
+    ],
+    "todohighlight.defaultStyle": {
+        "color": "red",
+        "backgroundColor": "#ffab00",
+        "overviewRulerColor": "rgba(0,0,0,0)",
+        "isWholeLine": false
+    },
+    "workbench.startupEditor": "none",
+    "gitlens.launchpad.indicator.enabled": false,
+
+    // Vim settings
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+        "before": ["j", "j"],
+        "after": ["<Esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+        "before": ["<leader>", "d"],
+        "after": ["d", "d"]
+        },
+        {
+        "before": ["<C-n>"],
+        "commands": [":nohl"]
+        },
+        {
+        "before": ["K"],
+        "commands": ["lineBreakInsert"],
+        "silent": true
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+
+    // To improve performance"
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+    },
+    "git.autofetch": true,
+    "C_Cpp.intelliSenseCachePath": "D:\\Development\\DevTools\\VSCode\\Fallback",
+    "git.enableSmartCommit": true,
+
+}
