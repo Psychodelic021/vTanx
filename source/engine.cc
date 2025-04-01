@@ -1,37 +1,24 @@
 #pragma once
 
-#include <iostream>
+#include <engine.h>
 
-#include "system.h"
-#include "engine.h"
-
-bool Engine::Init(Settings set)
+void Engine::Init(EngineSettings engset)
 {
-    std::cout << "\nEngine: initializing..." << std::endl;
+    std::cout << "Engine: Initializing..." << std::endl;
 
-    if (!window.Init(set.width, set.height, set.window_name)) {
-        std::cerr << "Error: Window initialization failed\n";
-        return false;
-    }
+    system.Init(engset.sysset);
+    gfx.Init(system.GetWindowHandle());
 
-    return true;
+    std::cout << "Engine: OK" << std::endl;
 }
 
-void Engine::Update()
+void Engine::Destroy()
 {
-
-}
-
-void Engine::Shutdown()
-{
-    
-    
-
-    std::cout << "\nEngine: shutting down..." << std::endl;
+    std::cout << "Engine: Shutting down..." << std::endl;
 }
 
 Engine::~Engine()
 {
-    Shutdown();
+    Destroy();
 }
 

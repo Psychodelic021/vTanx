@@ -20,11 +20,13 @@ namespace xm {
     vector3::vector3(float x, float y, float z) : x(x), y(y), z(z) {}
     vector3::vector3(const vector3& vec) : x(vec.x), y(vec.y), z(vec.z) {}
 
-    void vector3::operator= (vector3 vec)
+    vector3& vector3::operator= (const vector3& vec)
     {   
         x = vec.x;
         y = vec.y;
         z = vec.z;
+
+        return *this;
     }
 
     vector3 operator- (vector3 vec)
@@ -151,12 +153,14 @@ namespace xm {
         idx[3][0] = M.idx[3][0]; idx[3][1] = M.idx[3][1]; idx[3][2] = M.idx[3][2]; idx[3][3] = M.idx[3][3];
     }
 
-    void matrix4::operator= (matrix4 M)
+    matrix4& matrix4::operator= (const matrix4& M)
     {
         idx[0][0] = M.idx[0][0]; idx[0][1] = M.idx[0][1]; idx[0][2] = M.idx[0][2]; idx[0][3] = M.idx[0][3];
         idx[1][0] = M.idx[1][0]; idx[1][1] = M.idx[1][1]; idx[1][2] = M.idx[1][2]; idx[1][3] = M.idx[1][3];
         idx[2][0] = M.idx[2][0]; idx[2][1] = M.idx[2][1]; idx[2][2] = M.idx[2][2]; idx[2][3] = M.idx[2][3];
         idx[3][0] = M.idx[3][0]; idx[3][1] = M.idx[3][1]; idx[3][2] = M.idx[3][2]; idx[3][3] = M.idx[3][3];
+
+        return *this;
     }
 
     matrix4 operator* (matrix4 A, matrix4 B)

@@ -1,63 +1,64 @@
 #pragma once
 
-// API includes
 #define LEAN_AND_MEAN
 #include <Windows.h>
 #include <Windowsx.h>
 
-#include "types.h"
+#include <common.h>
 
-using std::string;
+struct SystemSettings {
+    int width;
+    int height;
+    const char* name;
+    bool fullscreen;
+    bool vsync;
+};
 
-namespace System {
-    
-    struct Input {
-        int keys[256];
-        int mouse_buttons[5];
-        int mouse_x;
-        int mouse_y;
-    };
+struct Window {
+    HINSTANCE instance = NULL;
+    HWND handle = NULL;
+    LPCSTR title = NULL;
+    DWORD style = 0;
+    int posX = 0;
+    int posY = 0;
+    int32 width = 0;
+    int32 height = 0;
+    bool fullscreen = false;
+    bool vsync = false;
+    RECT screen {0};
+};
 
-    struct Screen {
-        int width;
-        int height;
-        int display_width;
-        int display_height;
-    };
+struct Display {
+    int32 width = 0;
+    int32 height = 0;
+    DEVMODE mode {0};
+};
 
-    class Window {
+class System {
+
+    private:
+    Window window;
+    Display display;
+        
     public:
-        // Window properties
-        HINSTANCE instance = NULL;
-        HWND handle = NULL;
-        LPCSTR title = NULL;
-        DWORD style = 0;
-        // Window state
-        bool is_running = FALSE;
-        // Subsystem properties
-        Screen screen = { 0 };
-        Input input = { 0 };
+    System() = default;
+    ~System();
+    System(const System&) = delete;
+    System operator= (const System&) = delete;
 
-        // Constructor
-        Window() = default;
-        ~Window();
-        Window(const Window&) = delete;
-        Window operator=(const Window&) = delete;
+    void Init(SystemSettings);
+    void Destroy();
 
-        // Methods
-        bool Init(int32, int32, const char*);
-        void Update();
-        void Shutdown();
+    HWND GetWindowHandle();
+    void Update();
 
-        // Main window callback procedure
-        static LRESULT CALLBACK CallbackFunction(HWND, UINT, WPARAM, LPARAM);
-    };
-
-    // System functions
     void SetDpiAwareness();
-    void GetDpiAwareness();
     float GetTime();
+    void Delay(DWORD);
     void CheckLastError();
     string LoadTextFile(const char*);
-    void SkipTime(int32);
-}
+        
+    private:
+    static LRESULT CALLBACK WindowProc(HWND, uint32, WPARAM, LPARAM);
+};
+

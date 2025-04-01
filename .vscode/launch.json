@@ -6,7 +6,7 @@
             "program": "${workspaceFolder}/engine.exe",
             "type": "cppvsdbg",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

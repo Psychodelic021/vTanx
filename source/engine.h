@@ -1,22 +1,26 @@
 #pragma once
 
-struct Settings {
-    int width;
-    int height;
-    const char* window_name;
+#include <common.h>
+#include <system.h>
+#include <graphix.h>
+
+struct EngineSettings {
+    SystemSettings sysset;
+    GraphixSettings gfxset;
 };
 
 class Engine {
-public:
 
-    System::Window window;
+    private:
+        System system;
+        Graphix gfx;
+        
+    public:
+        Engine() = default;
+        Engine(const Engine&) = delete;
+        Engine& operator=(const Engine&) = delete;
+        ~Engine();
 
-    Engine() = default;
-    Engine(const Engine&) = delete;
-    Engine operator= (const Engine&) = delete;
-    ~Engine();
-
-    bool Init(Settings);
-    void Update();
-    void Shutdown();
+        void Init(EngineSettings);
+        void Destroy();
 };

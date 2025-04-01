@@ -23,7 +23,7 @@ namespace xm
         vector3(float, float, float);
         vector3(const vector3&);
 
-        void operator= (vector3);
+        vector3& operator= (const vector3&);
     };
 
     vector3 operator- (vector3);
@@ -56,7 +56,7 @@ namespace xm
         
         matrix4(float);
         matrix4(const matrix4&);
-        void operator= (matrix4);
+        matrix4& operator= (const matrix4&);
     };
 
     matrix4 operator* (matrix4, matrix4);

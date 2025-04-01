@@ -7,12 +7,12 @@ SET COMPILER=cl
 SET CFLAGS=/Zi /EHsc /W4 /std:c++20 /fsanitize=address /MDd
 SET DEFINES=/D_DEBUG
 SET INCLUDES=/Isource
-SET SOURCE=source/main.cc
+SET SOURCE=source/zmain.cc
 
 :: Linker options
 SET LINKER=/link
 SET LFLAGS=/DEBUG /MACHINE:X64 /SUBSYSTEM:CONSOLE
-SET LIBS=user32.lib d3d11.lib dxguid.lib d3dcompiler.lib
+SET LIBS=user32.lib d3d12.lib dxgi.lib dxguid.lib 
 SET TARGET=/OUT:engine.exe
 
 :: Build
