@@ -8,50 +8,35 @@
 
 #pragma comment(lib, "user32.lib")
 
-struct Window {
-    HINSTANCE instance = NULL;
-    HWND handle = NULL;
-    LPCSTR title = NULL;
-    DWORD style = 0;
-    int posX = 0;
-    int posY = 0;
-    int32 width = 0;
-    int32 height = 0;
-    bool fullscreen = false;
-    bool vsync = false;
-    RECT screen {0};
-};
+typedef struct Window {
 
-struct Display {
-    int32 width = 0;
-    int32 height = 0;
-    DEVMODE mode {0};
-};
+    HINSTANCE instance;
+    HWND handle;
+    LPCSTR title;
+    DWORD style;
+    int posX, posY;
+    uint width, height;
+    bool isRunning;
+    bool fullscreen;
+    bool vsync;
+    RECT screen;
+    int dspWidth;
+    int dspHeight;
+    DEVMODE dspMode;
+                
+} Window;
 
-class System {
+Window WindowInit(Settings* set);
 
-    private:
-        Window window;
-        Display display;
-        bool running = false;
-            
-    public:
-        System(Settings);
-        ~System();
+static LRESULT CALLBACK WindowProc(HWND, uint32, WPARAM, LPARAM);
 
-        HWND GetWindowHandle();
-        HINSTANCE GetInstance();
-        bool IsRunning();
-        void Update();
-        
-        static void SetDpiAwareness();
-        static float GetTime();
-        static void Delay(DWORD);
-        static void CheckLastError();
-        static string LoadTextFile(const char*);
-        static void SetConsoleColor(WORD);
-            
-    private:
-        static LRESULT CALLBACK WindowProc(HWND, uint32, WPARAM, LPARAM);
-};
+HWND GetWindowHandle(Window* wnd);
+HINSTANCE GetInstance(Window* wnd);
+
+void SetDpiAwareness();
+float GetTime();
+void Delay(DWORD);
+void CheckLastError();
+char* LoadTextFile(const char*);
+void SetConsoleColor(WORD);
 
