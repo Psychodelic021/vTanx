@@ -1,18 +1,12 @@
 #pragma once
 
+#include <common.h>
+
 #define LEAN_AND_MEAN
 #include <Windows.h>
 #include <Windowsx.h>
 
-#include <common.h>
-
-struct SystemSettings {
-    int width;
-    int height;
-    const char* name;
-    bool fullscreen;
-    bool vsync;
-};
+#pragma comment(lib, "user32.lib")
 
 struct Window {
     HINSTANCE instance = NULL;
@@ -37,28 +31,27 @@ struct Display {
 class System {
 
     private:
-    Window window;
-    Display display;
-        
+        Window window;
+        Display display;
+        bool running = false;
+            
     public:
-    System() = default;
-    ~System();
-    System(const System&) = delete;
-    System operator= (const System&) = delete;
+        System(Settings);
+        ~System();
 
-    void Init(SystemSettings);
-    void Destroy();
-
-    HWND GetWindowHandle();
-    void Update();
-
-    void SetDpiAwareness();
-    float GetTime();
-    void Delay(DWORD);
-    void CheckLastError();
-    string LoadTextFile(const char*);
+        HWND GetWindowHandle();
+        HINSTANCE GetInstance();
+        bool IsRunning();
+        void Update();
         
+        static void SetDpiAwareness();
+        static float GetTime();
+        static void Delay(DWORD);
+        static void CheckLastError();
+        static string LoadTextFile(const char*);
+        static void SetConsoleColor(WORD);
+            
     private:
-    static LRESULT CALLBACK WindowProc(HWND, uint32, WPARAM, LPARAM);
+        static LRESULT CALLBACK WindowProc(HWND, uint32, WPARAM, LPARAM);
 };
 

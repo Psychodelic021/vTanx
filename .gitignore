@@ -8,35 +8,9 @@
 *.a
 *.out
 
-# Ignore build scripts
-*.bat
-
-# Ignore Visual Studio Code settings
-# .vscode/
-
 # Ignore Windows specific files
 Thumbs.db
 Desktop.ini
-
-# Ignore compiled Python files
-*.pyc
-*.pyo
-__pycache__/
-
-# Ignore logs and temporary files
-*.log
-*.tmp
-*.temp
-
-# Ignore backup files
-*.bak
-*.old
-*.orig
-
-# Ignore other temporary files
-*.swp
-*.swo
-*.swn
 
 # Ignore Visual Studio specific files
 *.ilk

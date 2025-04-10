@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "Windows Build",
-            "command": "${workspaceFolder}\\build.bat",
+            "command": "${workspaceFolder}\\build_vk.bat",
             "group": {
                 "kind": "build",
                 "isDefault": true
