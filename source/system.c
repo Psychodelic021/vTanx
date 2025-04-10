@@ -1,6 +1,6 @@
 #pragma once
 
-#include <system.h>
+#include "system.h"
 
 // wnd subsystem initialization
 Window WindowInit(Settings* set)
@@ -48,7 +48,7 @@ Window WindowInit(Settings* set)
 
         // Set the wnd size to the display size
         wnd.screen = (RECT){0, 0, wnd.dspWidth, wnd.dspHeight};
-        AdjustwndRect(&wnd.screen, wnd.style, 0);
+        AdjustWindowRect(&wnd.screen, wnd.style, 0);
 
         wnd.width = wnd.dspWidth;
         wnd.height = wnd.dspHeight;
@@ -73,19 +73,19 @@ Window WindowInit(Settings* set)
         wnd.posY = (wnd.dspHeight - wnd.height) / 2;
 
         wnd.screen = (RECT){0, 0, wnd.width, wnd.height};
-        AdjustwndRect(&wnd.screen, wnd.style, 0);
+        AdjustWindowRect(&wnd.screen, wnd.style, 0);
     }
 
-    wnd.handle = Createwnd(class_name, wnd.title, wnd.style, wnd.posX, wnd.posY,
+    wnd.handle = CreateWindow(class_name, wnd.title, wnd.style, wnd.posX, wnd.posY,
         wnd.screen.right - wnd.screen.left, wnd.screen.bottom - wnd.screen.top,
         0, 0, wnd.instance, 0);
 
     if (!wnd.handle) {
-        PRINT_ERROR("System ERROR: wnd creation failed");
+        PRINT_ERROR("System ERROR: Window creation failed");
         __debugbreak();
     }
 
-    SetWindowLongPtr(wnd.handle, GWLP_USERDATA, &wnd);
+    SetWindowLongPtr(wnd.handle, GWLP_USERDATA, (LONG_PTR)&wnd);
 
     ShowWindow(wnd.handle, SW_SHOW);
     SetFocus(wnd.handle);
@@ -96,14 +96,23 @@ Window WindowInit(Settings* set)
     return wnd;
 }
 
-HWND Gethwnd(Window* wnd)
+void WindowDestroy(Window* wnd)
 {
-    return wnd->handle;
-}
+    if ((wnd != NULL) && (wnd->handle != NULL)) {
 
-HINSTANCE GetInstance(Window* wnd)
-{
-    return wnd->instance;
+        wnd->isRunning = false;
+
+        // Destroy the wnd and set the handle to NULL
+        DestroyWindow(wnd->handle);
+        wnd->handle = NULL;
+        // Unregister the wnd class before destroying the wnd
+        UnregisterClass("ENGINE_wndClass", wnd->instance);
+
+        *wnd = (Window){0}; // Reset the structure to zero
+        wnd = NULL; // Set the pointer to NULL
+    }
+    
+    printf("Window: OFF");
 }
 
 // Window message pump
@@ -141,26 +150,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, uint32 message, WPARAM wparam, LPARAM lpa
     return DefWindowProc(hwnd, message, wparam, lparam);
 }
 
-void WindowDestroy(Window* wnd)
-{
-    wnd->isRunning = false;
-
-    if (wnd->handle)
-    {   
-        // Destroy the wnd and set the handle to NULL
-        DestroyWindow(wnd->handle);
-        wnd->handle = NULL;
-        // Unregister the wnd class before destroying the wnd
-        UnregisterClass("ENGINE_wndClass", wnd->instance);
-    }
-
-    printf("Window: OFF");
-}
 
 // Automatically choose the proper DPI awareness context based on the system DPI settings
 void SetDpiAwareness()
 {
-
     if (!SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)) {
         PRINT_ERROR("Failed to set DPI awareness context to PER_MONITOR_AWARE_V2\n");
         if (!SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE)) {
@@ -171,7 +164,6 @@ void SetDpiAwareness()
                 printf("Set DPI awareness context to UNAWARE\n");
             }
         }
-        
         printf("\n");
     }
 
@@ -181,6 +173,9 @@ void SetDpiAwareness()
     const char* awarenessString = "Unknown";
     switch (dpiAwareness)
     {
+        case DPI_AWARENESS_INVALID:
+            awarenessString = "DPI_AWARENESS_INVALID";
+            break;
         case DPI_AWARENESS_UNAWARE:
             awarenessString = "DPI_AWARENESS_UNAWARE";
             break;
@@ -191,7 +186,6 @@ void SetDpiAwareness()
             awarenessString = "DPI_AWARENESS_PER_MONITOR_AWARE";
             break;
     }
-
     printf("Current DPI Awareness: %s\n", awarenessString);
 }
 
@@ -227,7 +221,7 @@ void CheckLastError()
         return;
     }
 
-    printf("%s\n", msgbuf);
+    printf("%s\n", (char*)msgbuf);
     LocalFree(msgbuf);
 }
 
@@ -273,6 +267,7 @@ char* LoadTextFile(const char* filename)
 }
 
 void SetConsoleColor(WORD color) {
+    
     // Get the handle to the standard output
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     if (hConsole == INVALID_HANDLE_VALUE) {

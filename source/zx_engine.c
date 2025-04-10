@@ -1,8 +1,8 @@
 
 // Single Translation Unity Build includes
-#include <system.c>
-#include <vulkangfx.c>
-#include <vmath.c>
+#include "system.c"
+#include "gfx_vulkan.c"
+#include "vmath.c"
 
 Settings settings = {
     // Window settings
@@ -13,15 +13,18 @@ Settings settings = {
     .vsync = true,
 };
 
-// Entry point
+// Entry pointW
 int main()
 {
     PRINT_DEBUG("\nEngine: Start Up\n");
 
     Window wnd = WindowInit(&settings);
-    Vulkan gfx = VulkanInit(&system, &settings);
+    Vulkan gfx = VulkanInit(&wnd);
 
     PRINT_INFO("Engine: Running...\n");
+
+    VulkanDestroy(&gfx);
+    WindowDestroy(&wnd);
         
     return 0;
-} 
+}

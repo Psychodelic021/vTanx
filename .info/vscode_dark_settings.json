@@ -83,11 +83,9 @@
     "terminal.integrated.fontSize": 14, // corrected line
     "extensions.ignoreRecommendations": true,
     "editor.minimap.showSlider": "always",
-    "security.workspace.trust.untrustedFiles": "open",
     "C_Cpp.enhancedColorization": "enabled",
     "explorer.confirmDelete": false,
     "editor.stickyScroll.enabled": false,
-    "window.commandCenter": false,
     "debug.onTaskErrors": "abort",
     "breadcrumbs.enabled": false,
     "files.associations": {
@@ -110,7 +108,6 @@
     "explorer.confirmDragAndDrop": false,
     "terminal.integrated.accessibleViewPreserveCursorPosition": true,
     "workbench.activityBar.location": "top",
-    "editor.minimap.size": "fit",
     "workbench.colorTheme": "Visual Studio Dark - C++",
     "editor.renderControlCharacters": true,
 
@@ -172,47 +169,11 @@
         "isWholeLine": false
     },
     "workbench.startupEditor": "none",
-    "gitlens.launchpad.indicator.enabled": false,
 
-    // Vim settings
-    "vim.easymotion": true,
-    "vim.incsearch": true,
-    "vim.useSystemClipboard": true,
-    "vim.useCtrlKeys": true,
-    "vim.hlsearch": true,
-    "vim.insertModeKeyBindings": [
-        {
-        "before": ["j", "j"],
-        "after": ["<Esc>"]
-        }
-    ],
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-        "before": ["<leader>", "d"],
-        "after": ["d", "d"]
-        },
-        {
-        "before": ["<C-n>"],
-        "commands": [":nohl"]
-        },
-        {
-        "before": ["K"],
-        "commands": ["lineBreakInsert"],
-        "silent": true
-        }
-    ],
-    "vim.leader": "<space>",
-    "vim.handleKeys": {
-        "<C-a>": false,
-        "<C-f>": false
-    },
-
-    // To improve performance"
-    "extensions.experimental.affinity": {
-        "vscodevim.vim": 1
-    },
     "git.autofetch": true,
-    "C_Cpp.intelliSenseCachePath": "D:\\Development\\DevTools\\VSCode\\Fallback",
     "git.enableSmartCommit": true,
+    "window.commandCenter": false,
+    "debug.terminal.clearBeforeReusing": true,
+    "editor.minimap.size": "fit",
 
 }

@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.h": "c",
-        "*.c": "c",
-        "*.hpp": "cpp",
-        "*.cpp": "cpp",
-        "xstring": "c"
-    }
-}

@@ -1,7 +1,4 @@
-#pragma once
-
-#include <math.h>
-#include <assert.h>
+#include "vmath.h"
 
 // DEFINES ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -9,55 +6,49 @@
 
 // FUNCTIONS //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-static inline float to_radians(float angle_deg)
+float to_radians(float angle_deg)
 {
     return angle_deg * PI / 180.f;
 }
 
 // VECTOR 3 TYPE ////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef struct vector2 {
-
-    float x, y;
-
-} vec2;
-
-static inline vec2 v2_neg(const vec2 a)
+vec2 v2_neg(const vec2 a)
 {
     return (vec2) { -a.x, -a.y };
 }
 
-static inline vec2 v2_add(const vec2 a, const vec2 b)
+vec2 v2_add(const vec2 a, const vec2 b)
 {
     return (vec2) { a.x + b.x, a.y + b.y };
 }
 
-static inline vec2 v2_sub(const vec2 a, const vec2 b)
+vec2 v2_sub(const vec2 a, const vec2 b)
 {
     return (vec2) { a.x - b.x, a.y - b.y };
 }
 
-static inline vec2 v2_mulf(const vec2 a, float f)
+vec2 v2_mulf(const vec2 a, float f)
 {
     return (vec2) { a.x * f, a.y * f };
 }
 
-static inline vec2 v2_pairwise(const vec2 a, const vec2 b)
+vec2 v2_pairwise(const vec2 a, const vec2 b)
 {
     return (vec2) { a.x * b.x, a.y * b.y };
 }
 
-static inline float v2_dot(const vec2 a, const vec2 b)
+float v2_dot(const vec2 a, const vec2 b)
 {
     return a.x * b.x + a.y * b.y;
 }
 
-static inline float v2_len(const vec2 in)
+float v2_len(const vec2 in)
 {
     return sqrtf(in.x * in.x + in.y * in.y);
 }
 
-static inline vec2 v2_normalize(const vec2 in)
+vec2 v2_normalize(const vec2 in)
 {
     if (in.x == 0 && in.y == 0) return in;
     float inv_len = 1.0f / v2_len(in);
@@ -66,43 +57,37 @@ static inline vec2 v2_normalize(const vec2 in)
 
 // VECTOR 3 TYPE ////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef struct vector3 {
-
-    float x, y, z;
-
-} vec3;
-
-static inline vec3 v3_neg(const vec3 a)
+vec3 v3_neg(const vec3 a)
 {
     return (vec3) { -a.x, -a.y, -a.z };
 }
 
-static inline vec3 v3_add(const vec3 a, const vec3 b)
+vec3 v3_add(const vec3 a, const vec3 b)
 {
     return (vec3) { a.x + b.x, a.y + b.y, a.z + b.z };
 }
 
-static inline vec3 v3_sub(const vec3 a, const vec3 b)
+vec3 v3_sub(const vec3 a, const vec3 b)
 {
     return (vec3) { a.x - b.x, a.y - b.y, a.z - b.z };
 }
 
-static inline vec3 v3_mulf(const vec3 a, float f)
+vec3 v3_mulf(const vec3 a, float f)
 {
     return (vec3) { a.x * f, a.y * f, a.z * f };
 }
 
-static inline vec3 v3_pairwise(const vec3 a, const vec3 b)
+vec3 v3_pairwise(const vec3 a, const vec3 b)
 {
     return (vec3) { a.x * b.x, a.y * b.y, a.z * b.z };
 }
 
-static inline float v3_dot(const vec3 a, const vec3 b)
+float v3_dot(const vec3 a, const vec3 b)
 {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-static inline vec3 cross(const vec3 a, const vec3 b)
+vec3 cross(const vec3 a, const vec3 b)
 {
     return (vec3) {
 
@@ -112,12 +97,12 @@ static inline vec3 cross(const vec3 a, const vec3 b)
     };
 }
 
-static inline float v3_len(const vec3 in)
+float v3_len(const vec3 in)
 {
     return sqrtf(in.x * in.x + in.y * in.y + in.z * in.z);
 }
 
-static inline vec3 v3_normalize(const vec3 in)
+vec3 v3_normalize(const vec3 in)
 {
     if (in.x == 0 && in.y == 0 && in.z == 0) return in;
     float inv_len = 1.0f / v3_len(in);
@@ -126,13 +111,7 @@ static inline vec3 v3_normalize(const vec3 in)
 
 // MATRIX 4 TYPE ////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef struct matrix4 {
-
-    float idx[4][4];
-
-} mat4;
-
-static inline mat4 identity()
+mat4 identity()
 {
     return (mat4) {
 
@@ -143,7 +122,7 @@ static inline mat4 identity()
     };
 }
 
-static inline mat4 m4_mul(const mat4 a, const mat4 b)
+mat4 m4_mul(const mat4 a, const mat4 b)
 {
     return (mat4) {
 
@@ -169,7 +148,7 @@ static inline mat4 m4_mul(const mat4 a, const mat4 b)
     };
 }
 
-static inline mat4 m4_mulf(const mat4 in, float f)
+mat4 m4_mulf(const mat4 in, float f)
 {
     return (mat4) {
 
@@ -180,7 +159,7 @@ static inline mat4 m4_mulf(const mat4 in, float f)
     };
 }
 
-static inline mat4 transpose(const mat4 in)
+mat4 transpose(const mat4 in)
 {
     return (mat4) {
 
@@ -191,7 +170,7 @@ static inline mat4 transpose(const mat4 in)
     };
 }
 
-static inline mat4 scale_uni(const mat4 in, float f)
+mat4 scale_uni(const mat4 in, float f)
 {
     mat4 scaling = {0};
 
@@ -203,7 +182,7 @@ static inline mat4 scale_uni(const mat4 in, float f)
     return m4_mul(in, scaling);
 }
 
-static inline mat4 scale(const mat4 in, float x, float y, float z)
+mat4 scale(const mat4 in, float x, float y, float z)
 {
     mat4 scaling = {0};
 
@@ -215,7 +194,7 @@ static inline mat4 scale(const mat4 in, float x, float y, float z)
     return m4_mul(in, scaling);
 }
 
-static inline mat4 scale_vec(const mat4 in, const vec3 v)
+mat4 scale_vec(const mat4 in, const vec3 v)
 {
     mat4 scaling = {0};
 
@@ -227,7 +206,7 @@ static inline mat4 scale_vec(const mat4 in, const vec3 v)
     return m4_mul(in, scaling);
 }
 
-static inline mat4 translate(const mat4 in, float x, float y, float z)
+mat4 translate(const mat4 in, float x, float y, float z)
 {
     mat4 trans = identity();
 
@@ -238,7 +217,7 @@ static inline mat4 translate(const mat4 in, float x, float y, float z)
     return m4_mul(in, trans);
 }
 
-static inline mat4 translate_vec(const mat4 in, const vec3 v)
+mat4 translate_vec(const mat4 in, const vec3 v)
 {
     mat4 trans = identity();
 
@@ -249,7 +228,7 @@ static inline mat4 translate_vec(const mat4 in, const vec3 v)
     return m4_mul(in, trans);
 }
 
-static inline mat4 rotate(const mat4 in, const vec3 axis, float angle_rad)
+mat4 rotate(const mat4 in, const vec3 axis, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -273,7 +252,7 @@ static inline mat4 rotate(const mat4 in, const vec3 axis, float angle_rad)
     return m4_mul(in, rot);
 }
 
-static inline mat4 rotateX(const mat4 in, float angle_rad)
+mat4 rotateX(const mat4 in, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -290,7 +269,7 @@ static inline mat4 rotateX(const mat4 in, float angle_rad)
     return m4_mul(in, rot);
 }
 
-static inline mat4 rotateY(const mat4 in, float angle_rad)
+mat4 rotateY(const mat4 in, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -307,7 +286,7 @@ static inline mat4 rotateY(const mat4 in, float angle_rad)
     return m4_mul(in, rot);
 }
 
-static inline mat4 rotateZ(const mat4 in, float angle_rad)
+mat4 rotateZ(const mat4 in, float angle_rad)
 {
     float s = sinf(angle_rad);
     float c = cosf(angle_rad);
@@ -324,7 +303,7 @@ static inline mat4 rotateZ(const mat4 in, float angle_rad)
     return m4_mul(in, rot);
 }
 
-static inline mat4 lookAt(const vec3 eye, const vec3 target, const vec3 up)
+mat4 lookAt(const vec3 eye, const vec3 target, const vec3 up)
 {
     vec3 view_z = v3_normalize(v3_sub(target, eye));
     vec3 view_x = v3_normalize(cross(view_z, up));
@@ -340,7 +319,7 @@ static inline mat4 lookAt(const vec3 eye, const vec3 target, const vec3 up)
     };
 }
 
-static inline mat4 ortho1(float width, float height, float zNear, float zFar)
+mat4 ortho1(float width, float height, float zNear, float zFar)
 {
     mat4 out = {0};
 
@@ -355,7 +334,7 @@ static inline mat4 ortho1(float width, float height, float zNear, float zFar)
     return out;
 }
 
-static inline mat4 ortho2(float left, float right, float bottom, float top, float zNear, float zFar)
+mat4 ortho2(float left, float right, float bottom, float top, float zNear, float zFar)
 {
     mat4 out = {0};
 
@@ -370,7 +349,7 @@ static inline mat4 ortho2(float left, float right, float bottom, float top, floa
     return out;
 }
 
-static inline mat4 perspective(float fov, float aspect, float zNear, float zFar)
+mat4 perspective(float fov, float aspect, float zNear, float zFar)
 {
     float scale = 1.0f / tanf(fov * 0.5f);
 
@@ -385,7 +364,7 @@ static inline mat4 perspective(float fov, float aspect, float zNear, float zFar)
     return out;
 }
 
-static inline mat4 m4_inverse()
+mat4 m4_inverse()
 {
     mat4 inverse = {0};
     return inverse;

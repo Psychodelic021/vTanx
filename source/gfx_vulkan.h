@@ -1,7 +1,7 @@
 #pragma once
 
-#include <common.h>
-#include <system.h>
+#include "common.h"
+#include "system.h"
 
 #include <vulkan/vulkan.h>
 #include <vulkan/vulkan_win32.h>
@@ -22,20 +22,14 @@
 #define VK_CHECK(x) x
 #endif
 
-typedef struct {
+typedef struct Vulkan {
 
     Window* window;
     VkInstance instance;
     VkSurfaceKHR surface;
-    VkPhysicalDevice physicalDevice;
-    int gpuIndex;
-    uint queueFamily;
+    VkPhysicalDevice gpu;
+    VkPhysicalDeviceProperties gpuProps;
 
 } Vulkan;
 
-Vulkan VulkanInit(Window* wnd, const Settings* settings);
-
-void VulkanDestroy();
-
-void VKCreateInstance(const char* appname);
-void VKCreateSurface();
+Vulkan VulkanInit(Window* wnd);

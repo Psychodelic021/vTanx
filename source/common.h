@@ -7,6 +7,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "debug.h"
+
 typedef int8_t int8, i8;
 typedef int16_t int16, i16;
 typedef int32_t int32, i32;
@@ -29,21 +31,3 @@ typedef struct Settings {
     bool fullscreen;
     bool vsync;
 } Settings;
-
-#define PRINT_INFO(msg) { \
-    SetConsoleColor(FOREGROUND_GREEN); \
-    printf(msg); \
-    SetConsoleColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); \
-}
-
-#define PRINT_DEBUG(msg) { \
-    SetConsoleColor(FOREGROUND_BLUE); \
-    printf(msg); \
-    SetConsoleColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); \
-}
-
-#define PRINT_ERROR(msg) { \
-    SetConsoleColor(FOREGROUND_RED); \
-    printf(msg); \
-    SetConsoleColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); \
-}
