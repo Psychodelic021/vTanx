@@ -13,8 +13,6 @@
 
 #pragma comment(lib, "user32.lib")
 
-// In STU builds, we include the implementation directly, so we need to avoid redefinitions
-#ifndef SYSTEM_IMPLEMENTATION
 // C++ namespace for system utilities
 namespace System {
     void SetDpiAwareness();
@@ -37,4 +35,3 @@ inline char* LoadTextFile(const char* path) {
     return cstr;
 }
 inline void SetConsoleColor(WORD color) { System::SetConsoleColor(color); }
-#endif

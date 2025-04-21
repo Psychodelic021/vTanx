@@ -1,9 +1,7 @@
-#pragma once
-
-// Define this before including system.h to prevent redefinitions
-#define SYSTEM_IMPLEMENTATION
-
 #include "system.h"
+#include "debug.h"
+#include <fstream>
+#include <sstream>
 
 namespace System {
 
@@ -51,7 +49,7 @@ float GetTime()
     LARGE_INTEGER frequency, counter;
     QueryPerformanceFrequency(&frequency);
     QueryPerformanceCounter(&counter);
-    return ((float)counter.QuadPart / (float)frequency.QuadPart);
+    return static_cast<float>(counter.QuadPart) / static_cast<float>(frequency.QuadPart);
 }
 
 void Delay(DWORD milliseconds)
@@ -62,7 +60,7 @@ void Delay(DWORD milliseconds)
 // Check for the last error and print it
 void CheckLastError()
 {
-    void* msgbuf = NULL;
+    LPVOID msgbuf = nullptr;
     DWORD error = GetLastError();
 
     if (!FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -70,60 +68,34 @@ void CheckLastError()
         FORMAT_MESSAGE_IGNORE_INSERTS,
         NULL, error,
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-        (LPTSTR)&msgbuf,
+        reinterpret_cast<LPTSTR>(&msgbuf),
         0, NULL))
     {
         PRINT_ERROR("FormatMessage failed\n");
         return;
     }
 
-    PRINT_WARNING("%s\n", (char*)msgbuf);
+    PRINT_WARNING("%s\n", static_cast<char*>(msgbuf));
     LocalFree(msgbuf);
 }
 
-// Load a text file into a string
+// Load a text file into a string using C++ file I/O
 std::string LoadTextFile(const char* filename)
 {
-    HANDLE file = CreateFile(filename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (file == INVALID_HANDLE_VALUE) {
-        printf("File %s: failed to create a file handle\n", filename);
-        return NULL;
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        PRINT_ERROR("File %s: failed to open\n", filename);
+        return std::string();
     }
-
-    LARGE_INTEGER filesize = {0};
-    bool result = GetFileSizeEx(file, &filesize);
-    if (!result) {
-        printf("File %s: failed to get file size\n", filename);
-        CheckLastError();
-        return NULL;
-    }
-
-    char* buffer = malloc((size_t)filesize.QuadPart + 1);
-    if (!buffer) {
-        PRINT_ERROR("Heap memory allocation failed\n");
-        CheckLastError();
-        return NULL;
-    }
-
-    DWORD bytesread = 0;
-    result = ReadFile(file, buffer, (DWORD)filesize.QuadPart, &bytesread, NULL);
-    if (!result || bytesread != filesize.QuadPart) {
-        PRINT_ERROR("File %s: failed to read\n", filename);
-        CheckLastError();
-        free(buffer); // Free allocated memory in case of failure
-        buffer = NULL;
-        return NULL;
-    }
-
-    CloseHandle(file);
-
-    buffer[filesize.QuadPart] = '\0'; // Null-terminate the buffer
-
-    return buffer;
+    
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    file.close();
+    
+    return buffer.str();
 }
 
 void SetConsoleColor(WORD color) {
-    
     // Get the handle to the standard output
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     if (hConsole == INVALID_HANDLE_VALUE) {
@@ -136,48 +108,3 @@ void SetConsoleColor(WORD color) {
 }
 
 } // namespace System
-
-// C-style implementations for backward compatibility
-// These are defined only when we're in the implementation file
-#ifdef SYSTEM_IMPLEMENTATION
-void SetDpiAwareness()
-{
-    System::SetDpiAwareness();
-}
-
-float GetTime()
-{
-    return System::GetTime();
-}
-
-void Delay(DWORD milliseconds)
-{
-    System::Delay(milliseconds);
-}
-
-void CheckLastError()
-{
-    System::CheckLastError();
-}
-
-char* LoadTextFile(const char* filename)
-{
-    std::string content = System::LoadTextFile(filename);
-    if (content.empty()) {
-        return nullptr;
-    }
-    
-    char* buffer = (char*)malloc(content.length() + 1);
-    if (!buffer) {
-        PRINT_ERROR("Memory allocation failed\n");
-        return nullptr;
-    }
-    
-    strcpy_s(buffer, content.length() + 1, content.c_str());
-    return buffer;
-}
-
-void SetConsoleColor(WORD color) {
-    System::SetConsoleColor(color);
-}
-#endif

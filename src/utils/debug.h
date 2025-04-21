@@ -1,48 +1,28 @@
 #pragma once
 
 #include <iostream>
-#include <cstdio>
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <Windows.h>
+#include <format>
 #include "system.h"
 
 // C++ style logger using iostream
 namespace Debug {
     // Color enum for better type safety
     enum class Color {
-        White = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-        Red = FOREGROUND_RED | FOREGROUND_INTENSITY,
-        Green = FOREGROUND_GREEN | FOREGROUND_INTENSITY,
-        Blue = FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-        Yellow = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY,
-        Magenta = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-        Cyan = FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY
+        White = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
+        Red = FOREGROUND_RED,
+        Green = FOREGROUND_GREEN,
+        Blue = FOREGROUND_BLUE,
+        Yellow = FOREGROUND_RED | FOREGROUND_GREEN,
+        Magenta = FOREGROUND_RED | FOREGROUND_BLUE,
+        Cyan = FOREGROUND_GREEN | FOREGROUND_BLUE
     };
     
-    // Handle to the console output
-    static HANDLE GetConsoleHandle() {
-        static HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-        return handle;
-    }
-    
-    // Set console text color directly without relying on external function
-    static void SetConsoleColor(WORD color) {
-        SetConsoleTextAttribute(GetConsoleHandle(), color);
-    }
-    
-    // Template function to print with color - fixed to address format security warnings
+    // Template function to print with color
     template<typename... Args>
     inline void PrintColored(Color color, const char* format, Args... args) {
-        // Use our own SetConsoleColor function
-        SetConsoleColor(static_cast<WORD>(color));
-        // Check if we have any arguments (handles both cases safely)
-        if constexpr(sizeof...(args) > 0) {
-            printf(format, args...);
-        } else {
-            printf("%s", format);
-        }
-        SetConsoleColor(static_cast<WORD>(Color::White));
+        System::SetConsoleColor(static_cast<WORD>(color));
+        printf(format, args...);
+        System::SetConsoleColor(static_cast<WORD>(Color::White));
     }
     
     // Specialized print functions

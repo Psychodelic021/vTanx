@@ -31,6 +31,5 @@ typedef double f64;
 #undef MAX
 #undef MIN
 
-// C++ compatible versions of MAX/MIN
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define MAX(x, y) ({typeof(x) _x = (x); typeof(y) _y = (y); _x > _y ? _x : _y;})
+#define MIN(x, y) ({typeof(x) _x = (x); typeof(y) _y = (y); _x < _y ? _x : _y;})

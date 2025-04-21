@@ -6,7 +6,8 @@
             "program": "${workspaceFolder}/zxengine.exe",
             "type": "cppvsdbg",
             "request": "launch",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "console": "externalTerminal",
         }
     ]
 }

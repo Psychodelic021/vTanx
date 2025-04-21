@@ -1,11 +1,6 @@
 #pragma once
 
-// Define this before including system.h to prevent redefinitions
-#define SYSTEM_IMPLEMENTATION
-
 #include "system.h"
-
-namespace System {
 
 // Automatically choose the proper DPI awareness context based on the system DPI settings
 void SetDpiAwareness()
@@ -82,7 +77,7 @@ void CheckLastError()
 }
 
 // Load a text file into a string
-std::string LoadTextFile(const char* filename)
+char* LoadTextFile(const char* filename)
 {
     HANDLE file = CreateFile(filename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (file == INVALID_HANDLE_VALUE) {
@@ -134,50 +129,3 @@ void SetConsoleColor(WORD color) {
     // Set the text color
     SetConsoleTextAttribute(hConsole, color);
 }
-
-} // namespace System
-
-// C-style implementations for backward compatibility
-// These are defined only when we're in the implementation file
-#ifdef SYSTEM_IMPLEMENTATION
-void SetDpiAwareness()
-{
-    System::SetDpiAwareness();
-}
-
-float GetTime()
-{
-    return System::GetTime();
-}
-
-void Delay(DWORD milliseconds)
-{
-    System::Delay(milliseconds);
-}
-
-void CheckLastError()
-{
-    System::CheckLastError();
-}
-
-char* LoadTextFile(const char* filename)
-{
-    std::string content = System::LoadTextFile(filename);
-    if (content.empty()) {
-        return nullptr;
-    }
-    
-    char* buffer = (char*)malloc(content.length() + 1);
-    if (!buffer) {
-        PRINT_ERROR("Memory allocation failed\n");
-        return nullptr;
-    }
-    
-    strcpy_s(buffer, content.length() + 1, content.c_str());
-    return buffer;
-}
-
-void SetConsoleColor(WORD color) {
-    System::SetConsoleColor(color);
-}
-#endif
