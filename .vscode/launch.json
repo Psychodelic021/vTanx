@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Windows Launch",
-            "program": "${workspaceFolder}/zxengine.exe",
+            "program": "${workspaceFolder}/engine.exe",
             "type": "cppvsdbg",
             "request": "launch",
             "cwd": "${workspaceFolder}",

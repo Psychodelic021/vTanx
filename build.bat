@@ -1,28 +1,37 @@
 @echo off
-
-:: call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+echo -------------------------------------------
+echo Building 3D Game Engine with Vulkan
+echo -------------------------------------------
 
 :: Compiler options
 SET COMPILER=clang++.exe
-SET CFLAGS= -g -std=c++20 -Wvarargs -Wall -Wextra -Wno-missing-braces -Wno-unused-parameter -Wno-unused-variable 
+SET CFLAGS= -g -std=c++20 -Wno-missing-braces
 SET DEFINES=-D_DEBUG -DDEBUG
-SET INCLUDES=-Isource -I%VULKAN_SDK%\Include 
-SET SOURCE=source/zx_engine.cpp
+SET INCLUDES=-Isrc -I%VULKAN_SDK%\Include -Ivendor
+SET SOURCE=src/engine.cpp
 
 :: Linker options
-SET LIBS=-L%VULKAN_SDK%\Lib 
-SET TARGET=zxengine.exe
+SET LIBS=-L%VULKAN_SDK%\Lib -lvulkan-1 -luser32 -lshell32 -lgdi32 -lmsvcrtd -Wl,/NODEFAULTLIB:libcmt
+SET TARGET=engine.exe
+
+:: Show build command
+echo Building with command:
+echo %COMPILER% %CFLAGS% %DEFINES% %INCLUDES% %SOURCE% %LIBS% -o %TARGET%
 
 :: Build
 %COMPILER% %CFLAGS% %DEFINES% %INCLUDES% %SOURCE% %LIBS% -o %TARGET%
 
-IF ERRORLEVEL 1 (
-    echo Build failed.
-    exit /b 1
+:: Check for errors
+IF %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo Build failed with error code %ERRORLEVEL%
+    echo See build errors above
+    exit /b %ERRORLEVEL%
 ) ELSE (
-    echo Build succeeded.
+    echo.
+    echo Build successful! Created %TARGET%
+    echo File size: 
+    for %%A in (%TARGET%) do echo %%~zA bytes
 )
 
-:: Run the Program
-:: echo Running the program...
-:: zxengine.exe
+exit /b 0

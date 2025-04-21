@@ -1,0 +1,95 @@
+In file included from src/engine.cpp:38:
+src\renderer/VulkanRenderer.cpp:99:5: warning: missing field 'flags' initializer [-Wmissing-designated-field-initializers]
+   99 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:121:9: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  121 |         };
+      |         ^
+src\renderer/VulkanRenderer.cpp:149:5: warning: missing field 'flags' initializer [-Wmissing-designated-field-initializers]
+  149 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:163:22: warning: ISO C++ requires field designators to be specified in declaration order; field 'hwnd' will be initialized after field 'hinstance' [-Wreorder-init-list]
+  163 |         .hinstance = GetModuleHandle(nullptr)
+      |         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\libloaderapi.h:250:26: note: expanded from macro 'GetModuleHandle'
+  250 | #define GetModuleHandle  GetModuleHandleA
+      |                          ^
+src\renderer/VulkanRenderer.cpp:162:17: note: previous initialization for field 'hwnd' is here
+  162 |         .hwnd = m_window->GetHandle(),
+      |                 ^~~~~~~~~~~~~~~~~~~~~
+src\renderer/VulkanRenderer.cpp:164:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  164 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:218:9: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  218 |         };
+      |         ^
+src\renderer/VulkanRenderer.cpp:233:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  233 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:296:44: warning: unused parameter 'messageSeverity' [-Wunused-parameter]
+  296 |     VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+      |                                            ^
+src\renderer/VulkanRenderer.cpp:297:37: warning: unused parameter 'messageType' [-Wunused-parameter]
+  297 |     VkDebugUtilsMessageTypeFlagsEXT messageType,
+      |                                     ^
+src\renderer/VulkanRenderer.cpp:299:11: warning: unused parameter 'pUserData' [-Wunused-parameter]
+  299 |     void* pUserData) {
+      |           ^
+src\renderer/VulkanRenderer.cpp:453:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  453 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:519:9: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  519 |         };
+      |         ^
+src\renderer/VulkanRenderer.cpp:541:5: warning: missing field 'flags' initializer [-Wmissing-designated-field-initializers]
+  541 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:554:5: warning: missing field 'flags' initializer [-Wmissing-designated-field-initializers]
+  554 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:562:25: warning: ISO C++ requires field designators to be specified in declaration order; field 'srcAccessMask' will be initialized after field 'dstStageMask' [-Wreorder-init-list]
+  562 |         .dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+      |         ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src\renderer/VulkanRenderer.cpp:561:26: note: previous initialization for field 'srcAccessMask' is here
+  561 |         .srcAccessMask = 0,
+      |                          ^
+src\renderer/VulkanRenderer.cpp:564:5: warning: missing field 'dependencyFlags' initializer [-Wmissing-designated-field-initializers]
+  564 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:575:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  575 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:602:9: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  602 |         };
+      |         ^
+src\renderer/VulkanRenderer.cpp:620:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  620 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:640:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  640 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:659:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  659 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:664:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  664 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:715:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  715 |     };
+      |     ^
+src\renderer/VulkanRenderer.cpp:731:5: warning: missing field 'pNext' initializer [-Wmissing-designated-field-initializers]
+  731 |     };
+      |     ^
+src/engine.cpp:43:31: warning: unused parameter 'hInstance' [-Wunused-parameter]
+   43 | int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+      |                               ^
+src/engine.cpp:43:52: warning: unused parameter 'hPrevInstance' [-Wunused-parameter]
+   43 | int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+      |                                                    ^
+src/engine.cpp:43:73: warning: unused parameter 'pCmdLine' [-Wunused-parameter]
+   43 | int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+      |                                                                         ^
+src/engine.cpp:43:87: warning: unused parameter 'nCmdShow' [-Wunused-parameter]
+   43 | int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+      |                                                                                       ^
+28 warnings generated.

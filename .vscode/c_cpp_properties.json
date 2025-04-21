@@ -12,9 +12,9 @@
                 "DEBUG"
             ],
             "windowsSdkVersion": "10.0.22621.0",
-            "compilerPath": "D:/Development/LLVM/bin/clang.exe",
-            "cStandard": "c23",
-            "intelliSenseMode": "clang-x64"
+            "compilerPath": "D:/Development/LLVM/bin/clang++.exe",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "windows-clang-x64"
         }
     ],
     "version": 4
