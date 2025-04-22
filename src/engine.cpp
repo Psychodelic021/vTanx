@@ -33,11 +33,15 @@
 // Include camera system
 #include "camera/Camera.h"
 
+// Include mesh system
+#include "mesh/Mesh.h"
+
 // Must include implementation files for STU build
 #include "window/Window.cpp"
 #include "renderer/VulkanRenderer.cpp"
 #include "input/Input.cpp"
 #include "camera/Camera.cpp"
+#include "mesh/Mesh.cpp"
 
 // Main entry point for a Windows application
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
@@ -62,6 +66,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
         // Initialize Vulkan
         if (!renderer.Initialize()) {
             throw std::runtime_error("Failed to initialize Vulkan renderer");
+        }
+        
+        // Initialize the mesh manager
+        MeshManager::GetInstance().Initialize(&renderer);
+        
+        // Create a triangle mesh
+        std::shared_ptr<Mesh> triangleMesh = MeshManager::GetInstance().CreateMesh(MeshPrimitiveType::TRIANGLE);
+        if (!triangleMesh) {
+            throw std::runtime_error("Failed to create triangle mesh");
         }
         
         // Set resize callback to update camera's aspect ratio
@@ -145,9 +158,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
                 try {
                     renderer.BeginFrame();
                     
-                    // Draw commands would go here
-                    // In future, we'll pass camera.GetViewMatrix() and camera.GetProjectionMatrix()
-                    // to the rendering system for drawing 3D objects
+                    // Set up the camera's view and projection matrices for rendering
+                    renderer.SetViewMatrix(camera.GetViewMatrix());
+                    renderer.SetProjectionMatrix(camera.GetProjectionMatrix());
+                    
+                    // Draw our triangle
+                    triangleMesh->Draw(renderer.GetCommandBuffer());
                     
                     renderer.EndFrame();
                 } 
@@ -156,6 +172,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
                 }
             }
         }
+        
+        // Clean up resources
+        MeshManager::GetInstance().Cleanup();
         
         return 0;
     }

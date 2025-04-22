@@ -199,6 +199,23 @@ bool Mesh::CreateSphere(float radius, uint32_t segments, const glm::vec3& color)
     return CreateBuffers();
 }
 
+bool Mesh::CreateTriangle(float size, const glm::vec3& color) {
+    m_primitiveType = MeshPrimitiveType::TRIANGLE;
+    
+    // Create a simple triangle in the XY plane
+    m_vertices = {
+        // Position                       Normal             TexCoord    Color
+        { {0.0f, size, 0.0f},           {0.0f, 0.0f, 1.0f}, {0.5f, 0.0f}, color },            // Top vertex
+        { {-size, -size, 0.0f},         {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, 1.0f, 0.0f} }, // Bottom-left vertex
+        { {size, -size, 0.0f},          {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}, {0.0f, 0.0f, 1.0f} }  // Bottom-right vertex
+    };
+    
+    // Define indices for the triangle
+    m_indices = { 0, 1, 2 };
+    
+    return CreateBuffers();
+}
+
 bool Mesh::CreateFromVertices(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices) {
     m_primitiveType = MeshPrimitiveType::CUSTOM;
     m_vertices = vertices;
@@ -315,6 +332,9 @@ std::shared_ptr<Mesh> MeshManager::CreateMesh(MeshPrimitiveType type) {
             break;
         case MeshPrimitiveType::SPHERE:
             created = mesh->CreateSphere();
+            break;
+        case MeshPrimitiveType::TRIANGLE:
+            created = mesh->CreateTriangle();
             break;
         default:
             return nullptr;

@@ -63,6 +63,7 @@ enum class MeshPrimitiveType {
     CUBE,
     PLANE,
     SPHERE,
+    TRIANGLE,  // Added triangle primitive type
     CUSTOM
 };
 
@@ -76,6 +77,7 @@ public:
     bool CreateCube(float size = 1.0f, const glm::vec3& color = glm::vec3(1.0f));
     bool CreatePlane(float width = 1.0f, float height = 1.0f, const glm::vec3& color = glm::vec3(1.0f));
     bool CreateSphere(float radius = 1.0f, uint32_t segments = 16, const glm::vec3& color = glm::vec3(1.0f));
+    bool CreateTriangle(float size = 1.0f, const glm::vec3& color = glm::vec3(1.0f, 0.0f, 0.0f)); // Added triangle creation
     
     // Create custom mesh from vertices and indices
     bool CreateFromVertices(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices);

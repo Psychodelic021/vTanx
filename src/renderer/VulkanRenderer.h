@@ -57,6 +57,13 @@ public:
     void BeginFrame();
     void EndFrame();
     
+    // Set matrices for rendering
+    void SetViewMatrix(const glm::mat4& view);
+    void SetProjectionMatrix(const glm::mat4& projection);
+    
+    // Get current command buffer for drawing
+    VkCommandBuffer GetCommandBuffer() const;
+    
     // Shader creation
     VkShaderModule CreateShaderModule(const std::vector<char>& code);
     
@@ -66,6 +73,12 @@ public:
     bool CreateUniformBuffers();
     bool CreateDescriptorPool();
     bool CreateDescriptorSets();
+    
+    // Depth buffer methods
+    bool CreateDepthResources();
+    VkFormat FindDepthFormat();
+    VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+    bool HasStencilComponent(VkFormat format);
     
     // Buffer creation methods for mesh rendering
     bool CreateBuffer(const BufferCreateInfo& createInfo, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
@@ -111,6 +124,21 @@ private:
     bool CreateCommandPool();
     bool CreateCommandBuffers();
     bool CreateSyncObjects();
+    
+    // Depth buffer methods - REMOVING DUPLICATE DECLARATIONS
+    // bool CreateDepthResources();
+    // VkFormat FindDepthFormat();
+    // VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates,
+    //                            VkImageTiling tiling,
+    //                            VkFormatFeatureFlags features);
+    // bool HasStencilComponent(VkFormat format);
+    bool CreateImage(uint32_t width, uint32_t height, VkFormat format,
+                    VkImageTiling tiling, VkImageUsageFlags usage,
+                    VkMemoryPropertyFlags properties, VkImage& image,
+                    VkDeviceMemory& imageMemory);
+    VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags);
+    void TransitionImageLayout(VkImage image, VkFormat format,
+                              VkImageLayout oldLayout, VkImageLayout newLayout);
     
     // Validation layer helpers
     bool CheckValidationLayerSupport();
@@ -186,6 +214,11 @@ private:
     VkExtent2D m_swapChainExtent;
     std::vector<VkImageView> m_swapChainImageViews;
     std::vector<VkFramebuffer> m_swapChainFramebuffers;
+    
+    // Depth buffer
+    VkImage m_depthImage = VK_NULL_HANDLE;
+    VkDeviceMemory m_depthImageMemory = VK_NULL_HANDLE;
+    VkImageView m_depthImageView = VK_NULL_HANDLE;
     
     // Rendering
     VkRenderPass m_renderPass = VK_NULL_HANDLE;

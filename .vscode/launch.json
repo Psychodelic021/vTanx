@@ -6,8 +6,8 @@
             "program": "${workspaceFolder}/engine.exe",
             "type": "cppvsdbg",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "externalTerminal",
+            "cwd": "${workspaceFolder}"
+            //"console": "externalTerminal",
         }
     ]
 }
