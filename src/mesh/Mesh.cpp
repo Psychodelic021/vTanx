@@ -232,10 +232,11 @@ bool Mesh::CreateBuffers() {
     VkDeviceSize vertexBufferSize = sizeof(m_vertices[0]) * m_vertices.size();
     
     // Create vertex buffer
-    BufferCreateInfo vertexBufferInfo = {};
-    vertexBufferInfo.size = vertexBufferSize;
-    vertexBufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
-    vertexBufferInfo.properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+    BufferCreateInfo vertexBufferInfo {
+        .size = vertexBufferSize,
+        .usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+        .properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+    };
     
     if (!m_renderer->CreateBuffer(vertexBufferInfo, m_vertexBuffer, m_vertexBufferMemory)) {
         return false;
@@ -251,10 +252,11 @@ bool Mesh::CreateBuffers() {
     if (!m_indices.empty()) {
         VkDeviceSize indexBufferSize = sizeof(m_indices[0]) * m_indices.size();
         
-        BufferCreateInfo indexBufferInfo = {};
-        indexBufferInfo.size = indexBufferSize;
-        indexBufferInfo.usage = VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
-        indexBufferInfo.properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+        BufferCreateInfo indexBufferInfo {
+            .size = indexBufferSize,
+            .usage = VK_BUFFER_USAGE_INDEX_BUFFER_BIT,
+            .properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+        };
         
         if (!m_renderer->CreateBuffer(indexBufferInfo, m_indexBuffer, m_indexBufferMemory)) {
             return false;
